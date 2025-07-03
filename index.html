@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>உரிமைச் சொறு - தமிழ் பைபிள்</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      background: #fffef8;
+      color: #2d2d2d;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 { color: #4a7c59; text-align: center; }
+    #verse-box {
+      background: #f9f9f9;
+      border-left: 5px solid #4a7c59;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 1.3rem;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>உரிமைச் சொறு</h1>
+  <input type="text" id="search" placeholder="வசனத்தை தேடுக..." onkeyup="searchVerse()"/>
+  <div id="verse-box">தினந்தோறும் புதிய வசனம் இங்கே தோன்றும்.</div>
+
+  <script>
+    const verses = [
+      "யோவான் 3:16 - தேவன் உலகத்தை இப்படியே நேசித்தார்...",
+      "திருப்பாடல் 23:1 - கர்த்தர் எனக்குப் மேய்ப்பனாக இருக்கிறார்...",
+      "மத்தேயு 5:9 - சமாதானத்தை ஏற்படுத்துவோர் நற்குழந்தைகள்...",
+      "நீதிமொழிகள் 3:5 - முழு இருதயத்தோடு கர்த்தரை நம்பு..."
+    ];
+    const verseBox = document.getElementById('verse-box');
+    const searchInput = document.getElementById('search');
+
+    function showRandomVerse() {
+      const random = verses[Math.floor(Math.random() * verses.length)];
+      verseBox.innerText = random;
+    }
+
+    function searchVerse() {
+      const query = searchInput.value.toLowerCase();
+      const found = verses.find(v => v.toLowerCase().includes(query));
+      verseBox.innerText = found || "வசனம் கிடைக்கவில்லை.";
+    }
+
+    showRandomVerse();
+  </script>
+</body>
+</html>
