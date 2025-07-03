@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <title>தமிழ் வேதாகமம் தேடல்</title>
+  <script src="https://unpkg.com/tabletop@1.6.0/build/tabletop.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .verse {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .verse strong {
+      color: #1e88e5;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔍 தமிழ் வேதாகம வசன தேடல்</h1>
+  <input type="text" id="searchInput" placeholder="வசனங்களைத் தேடவும்..." onkeyup="searchVerses()">
+  <div id="results">Verse data loading, please wait...</div>
+
+  <script>
+    let verses = [];
+
+    function searchVerses() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = verses.filter(v =>
+        v["வசன உரை"]?.toLowerCase().includes(q) ||
+        v["புத்தகம்"]?.toLowerCase().includes(q) ||
+        (v["அதிகாரம்"] + ":" + v["வசனம்"]).includes(q)
+      );
+      const html = filtered.map(v =>
+        `<div class="verse"><strong>${v["புத்தகம்"]} ${v["அதிகாரம்"]}:${v["வசனம்"]}</strong><br>${v["வசன உரை"]}</div>`
+      ).join('');
+      document.getElementById("results").innerHTML = html || "😔 எதுவும் காணப்படவில்லை.";
+    }
+
+    function init() {
+      Tabletop.init({
+        key: 'https://docs.google.com/spreadsheets/d/1L_8IhVrZbFtzvRQIfQbEqKqC1l3n_rTBCO6y3_rDEIY/edit?usp=sharing', // sample DB
+        simpleSheet: true,
+        callback: function(data) {
+          verses = data;
+          searchVerses();
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
 
