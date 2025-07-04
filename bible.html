@@ -57,12 +57,17 @@
       document.getElementById("results").innerHTML = html || "😔 எதுவும் காணப்படவில்லை.";
     }
 
-    function init() {
-      Tabletop.init({key: 'https://docs.google.com/spreadsheets/d/18Z29Fyn9ngWPvczR18n4hTARLbZY0iYC/edit?usp=sharing',
-        simpleSheet: true,
-        callback: function(data) {
-          verses = data;
-          searchVerses();
+function init() {
+  Tabletop.init({
+key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9K6xsItMPpRhbUmVPsbl3Gwvim5oCBEajhN9sxO91FpNcQHCfrHeE9pr-UW6PmgvsDerf_22esH-k/pubhtml',
+    simpleSheet: true,
+    callback: function(data) {
+      verses = data;
+      searchVerses();
+    }
+  });
+}
+
         }
       });
     }
