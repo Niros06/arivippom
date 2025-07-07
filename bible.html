@@ -40,36 +40,33 @@
   <h1>🔍 தமிழ் வேதாகம வசன தேடல்</h1>
   <input type="text" id="searchInput" placeholder="வசனங்களைத் தேடவும்..." onkeyup="searchVerses()">
   <div id="results">Verse data loading, please wait...</div>
-<script>
-  let verses = [];
 
-  function searchVerses() {
-    const q = document.getElementById("searchInput").value.toLowerCase();
-    const filtered = verses.filter(v =>
-      v["வசன உரை"]?.toLowerCase().includes(q) ||
-      v["புத்தகம்"]?.toLowerCase().includes(q) ||
-      (v["அதிகாரம்"] + ":" + v["வசனம்"]).includes(q)
-    );
-    const html = filtered.map(v =>
-      `<div class="verse"><strong>${v["புத்தகம்"]} ${v["அதிகாரம்"]}:${v["வசனம்"]}</strong><br>${v["வசன உரை"]}</div>`
-    ).join('');
-    document.getElementById("results").innerHTML = html || "😔 எதுவும் காணப்படவில்லை.";
-  }
+  <script>
+    let verses = [];
 
-  function init() {
-    Tabletop.init({
-      key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9K6xsItMPpRhbUmVPsbl3Gwvim5oCBEajhN9sxO91FpNcQHCfrHeE9pr-UW6PmgvsDerf_22esH-k/pubhtml',
-      simpleSheet: true,
-      callback: function(data) {
-        verses = data;
-        searchVerses();
-      }
-    });
-  }
+    function searchVerses() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = verses.filter(v =>
+        v["வசன உரை"]?.toLowerCase().includes(q) ||
+        v["புத்தகம்"]?.toLowerCase().includes(q) ||
+        (v["அதிகாரம்"] + ":" + v["வசனம்"]).includes(q)
+      );
+      const html = filtered.map(v =>
+        `<div class="verse"><strong>${v["புத்தகம்"]} ${v["அதிகாரம்"]}:${v["வசனம்"]}</strong><br>${v["வசன உரை"]}</div>`
+      ).join('');
+      document.getElementById("results").innerHTML = html || "😔 எதுவும் காணப்படவில்லை.";
+    }
 
-  window.addEventListener('DOMContentLoaded', init);
-</script>
-
+    function init() {
+      Tabletop.init({
+        key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9K6xsItMPpRhbUmVPsbl3Gwvim5oCBEajhN9sxO91FpNcQHCfrHeE9pr-UW6PmgvsDerf_22esH-k/pubhtml',
+        simpleSheet: true,
+        callback: function(data) {
+          verses = data;
+          searchVerses();
+        }
+      });
+    }
 
     window.addEventListener('DOMContentLoaded', init);
   </script>
